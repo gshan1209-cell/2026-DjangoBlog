@@ -15,5 +15,5 @@ set "DB_PATH=%~dp0blog_db.sqlite3"
 :: Direct download link constructed from FILE_ID
 set "DOWNLOAD_URL=https://drive.google.com/uc?export=download&id=%FILE_ID%"
 
-set "GIT_USER_NAME="gshan1209-cell"
-set "GIT_USER_EMAIL="gshan1209@gmail.com"
+set "GIT_USER_NAME=gshan1209-cell"
+set "GIT_USER_EMAIL=gshan1209@gmail.com"
