@@ -9,9 +9,9 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}==========================================${NC}"
-echo -e "${GREEN}Setting up Python Virtual Environment...${NC}"
-echo -e "${GREEN}==========================================${NC}"
+printf "${GREEN}==========================================${NC}\n"
+printf "${GREEN}Setting up Python Virtual Environment...${NC}\n"
+printf "${GREEN}==========================================${NC}\n"
 
 # Check if Python 3 is installed
 PYTHON_CMD=""
@@ -22,47 +22,54 @@ elif command -v python >/dev/null 2>&1; then
 fi
 
 if [ -z "$PYTHON_CMD" ]; then
-    echo -e "${RED}[ERROR] Python is not installed or not in PATH.${NC}"
-    echo "Please install Python 3 and try again."
+    printf "${RED}[ERROR] Python is not installed or not in PATH.${NC}\n"
+    printf "Please install Python 3 and try again.\n"
     exit 1
 fi
 
-echo -e "Using Python command: ${GREEN}$PYTHON_CMD${NC} ($( $PYTHON_CMD --version 2>&1 ))"
+PYTHON_VER=$($PYTHON_CMD --version 2>&1)
+printf "Using Python command: ${GREEN}%s${NC} (%s)\n" "$PYTHON_CMD" "$PYTHON_VER"
 
 # Create virtual environment
 if [ ! -d ".venv" ]; then
-    echo "Creating virtual environment in .venv..."
+    printf "Creating virtual environment in .venv...\n"
     $PYTHON_CMD -m venv .venv
     if [ $? -ne 0 ]; then
-        echo -e "${RED}[ERROR] Failed to create virtual environment.${NC}"
+        printf "${RED}[ERROR] Failed to create virtual environment.${NC}\n\n"
+        printf "${YELLOW}💡 Hint for Debian/Ubuntu users:${NC}\n"
+        printf "The error often occurs because the python3-venv package is not installed.\n"
+        printf "Please run the following commands to install it:\n\n"
+        printf "  sudo apt update\n"
+        printf "  sudo apt install %s-venv\n\n" "$PYTHON_CMD"
+        printf "After installing, please run this script again.\n"
         exit 1
     fi
-    echo -e "${GREEN}Virtual environment created successfully.${NC}"
+    printf "${GREEN}Virtual environment created successfully.${NC}\n"
 else
-    echo ".venv already exists. Skipping creation."
+    printf ".venv already exists. Skipping creation.\n"
 fi
 
 # Upgrade pip
-echo "Upgrading pip..."
+printf "Upgrading pip...\n"
 if [ -f ".venv/bin/python" ]; then
     .venv/bin/python -m pip install --upgrade pip
 else
-    echo -e "${RED}[ERROR] Virtual environment Python binary not found at .venv/bin/python.${NC}"
+    printf "${RED}[ERROR] Virtual environment Python binary not found at .venv/bin/python.${NC}\n"
     exit 1
 fi
 
 # Install dependencies
 if [ -f "requirement.txt" ]; then
-    echo "Installing dependencies from requirement.txt..."
+    printf "Installing dependencies from requirement.txt...\n"
     .venv/bin/python -m pip install -r requirement.txt
     if [ $? -ne 0 ]; then
-        echo -e "${RED}[ERROR] Failed to install dependencies.${NC}"
+        printf "${RED}[ERROR] Failed to install dependencies.${NC}\n"
         exit 1
     fi
 else
-    echo -e "${YELLOW}[WARNING] requirement.txt not found. Skipping installation.${NC}"
+    printf "${YELLOW}[WARNING] requirement.txt not found. Skipping installation.${NC}\n"
 fi
 
-echo -e "${GREEN}==========================================${NC}"
-echo -e "${GREEN}Setup completed successfully!${NC}"
-echo -e "${GREEN}==========================================${NC}"
+printf "${GREEN}==========================================${NC}\n"
+printf "${GREEN}Setup completed successfully!${NC}\n"
+printf "${GREEN}==========================================${NC}\n"
