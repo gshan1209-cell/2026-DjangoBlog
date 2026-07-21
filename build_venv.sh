@@ -30,8 +30,22 @@ fi
 PYTHON_VER=$($PYTHON_CMD --version 2>&1)
 printf "Using Python command: ${GREEN}%s${NC} (%s)\n" "$PYTHON_CMD" "$PYTHON_VER"
 
-# Create virtual environment
-if [ ! -d ".venv" ]; then
+# Validate existing virtual environment
+VENV_VALID=0
+if [ -d ".venv" ] && [ -f ".venv/bin/python" ]; then
+    .venv/bin/python -m pip --version >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        VENV_VALID=1
+    fi
+fi
+
+# Create virtual environment if not exists or invalid
+if [ $VENV_VALID -ne 1 ]; then
+    if [ -d ".venv" ]; then
+        printf "${YELLOW}Existing .venv is incomplete or invalid. Recreating...${NC}\n"
+        rm -rf .venv
+    fi
+    
     printf "Creating virtual environment in .venv...\n"
     $PYTHON_CMD -m venv .venv
     if [ $? -ne 0 ]; then
@@ -46,7 +60,7 @@ if [ ! -d ".venv" ]; then
     fi
     printf "${GREEN}Virtual environment created successfully.${NC}\n"
 else
-    printf ".venv already exists. Skipping creation.\n"
+    printf ".venv already exists and is valid. Skipping creation.\n"
 fi
 
 # Upgrade pip
