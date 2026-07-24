@@ -1,144 +1,132 @@
-# DjangoBlog 專案說明文件
+<div align="center">
 
-這是一個基於 **Django 6.0** 的部落格（Blog）Web 專案初始範本。
+# 🚀 2026-DjangoBlog
 
----
+> **一個基於 Django 架構打造的高效、簡潔部落格系統**
 
-## 🛠️ 環境需求與配置
+</div>
 
-此專案已配置 VS Code 相關設定，並使用位於專案根目錄的虛擬環境：
-* **虛擬環境路徑**：`D:\SeanLin\2026-DjangoBlog\.venv`
-* **Python 解釋器路徑**：`D:\SeanLin\2026-DjangoBlog\.venv\Scripts\python.exe`
+<div align="center">
 
----
+[![GitHub license](https://img.shields.io/github/license/gshan1209-cell/2026-DjangoBlog?style=for-the-badge&color=blue)](https://github.com/gshan1209-cell/2026-DjangoBlog/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-%E6%AD%A1%E8%BF%8E%E6%8F%90%E4%BA%A4-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
+[![Stars](https://img.shields.io/github/stars/gshan1209-cell/2026-DjangoBlog?style=for-the-badge&color=gold)](https://github.com/gshan1209-cell/2026-DjangoBlog/stargazers)
 
-## 🆕 全新啟動設定指令 (Fresh Setup)
-
-如果是全新下載/複製此專案，請先在專案根目錄 `D:\SeanLin\2026-DjangoBlog` 下依序執行以下指令進行初始化設定（請不要加上 `python` 執行）：
-
-### 1. 建立虛擬環境與安裝依賴套件
-* **PowerShell**：
-  ```powershell
-  .\build_venv.bat
-  ```
-* **Command Prompt (CMD)**：
-  ```cmd
-  build_venv.bat
-  ```
-
-### 2. 下載 SQLite 資料庫
-將自動從 Google Drive 下載配置好的 `blog_db.sqlite3`：
-* **PowerShell**：
-  ```powershell
-  .\download_db.bat
-  ```
-* **Command Prompt (CMD)**：
-  ```cmd
-  download_db.bat
-  ```
-
-### 3. 設定本機 Git 使用者資訊
-讀取 `config.bat` 中的 `GIT_USER_NAME` 與 `GIT_USER_EMAIL` 設定此專案的 Git 本地配置：
-* **PowerShell**：
-  ```powershell
-  .\setup_git.bat
-  ```
-* **Command Prompt (CMD)**：
-  ```cmd
-  setup_git.bat
-  ```
+</div>
 
 ---
 
-## 🚀 快速開始步驟
-
-### ⚡ 懶人一鍵啟動（推薦）
-在專案根目錄下直接執行：
-* **PowerShell / CMD**：
-  ```cmd
-  start.bat
-  ```
-這會自動執行資料庫遷移、開啟瀏覽器並啟動開發伺服器。
+> **🤖 Antigravity AI Agent 提示**
+>
+> 本 `README.md` 由 **Antigravity IDE AI Agent** 自動構建與維護。內容直接同步自專案程式碼與結構元資料，確保提供最新且精準的安裝指南與架構資訊。
 
 ---
 
-### 🛠️ 手動分步啟動
+## 📌 目錄
 
-#### 1. 啟用虛擬環境
+- [📖 關於專案](#-關於專案)
+- [✨ 主要功能](#-主要功能)
+- [🛠️ 核心技術棧](#️-核心技術棧)
+- [📁 專案結構](#-專案結構)
+- [🚀 快速開始](#-快速開始)
+  - [前置需求](#前置需求)
+  - [安裝與啟動步驟](#安裝與啟動步驟)
+- [🤝 貢獻指南](#-貢獻指南)
+- [📄 開源協議](#-開源協議)
 
-在專案目錄 `D:\SeanLin\2026-DjangoBlog` 下開啟終端機，依據您的終端機類型執行對應指令：
+---
 
-* **PowerShell**：
-  ```powershell
-  .venv\Scripts\Activate.ps1
-  ```
-* **Command Prompt (CMD)**：
-  ```cmd
-  .venv\Scripts\activate.bat
-  ```
-* **Git Bash**：
-  ```bash
-  source .venv/Scripts/activate
-  ```
+## 📖 關於專案
 
-> 💡 **提示**：虛擬環境成功啟用後，終端機前綴會顯示 `(.venv)`。
+`2026-DjangoBlog` 是一個輕量級且全功能的 Django 部落格應用程式。專案具備完整文章管理、靜態頁面渲染與模板系統，適合個人部落格展示、技術文章發表或作為 Django MVC 模式學習的範例。
 
-#### 2. 執行資料庫遷移（Migration）
+---
 
-Django 使用 SQLite 作為預設資料庫。初次執行時，請先初始化資料庫結構：
-```bash
-python manage.py migrate
+## ✨ 主要功能
+
+- ⚡ **高效文章管理**：支援 Django Admin 後台對文章進行新增、編輯與刪除。
+- 🎨 **現代化樣式**：基於模板 HTML 渲染，提供清晰俐落的文章列表與單篇文章瀏覽體驗。
+- 🔒 **資料庫整合**：支援預設 SQLite 資料庫開箱即用，方便快速部署開發。
+
+---
+
+## 🛠️ 核心技術棧
+
+| 類別 | 技術標籤 |
+| :--- | :--- |
+| **Backend** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white) |
+| **Database** | ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white) |
+
+---
+
+## 📁 專案結構
+
 ```
-
-#### 3. 建立後台管理員帳號 (Superuser)
-
-若要進入 Django Admin 後台進行資料管理，請建立管理員帳號：
-```bash
-python manage.py createsuperuser
-```
-並依提示輸入：
-* 使用者名稱 (Username)
-* 電子信箱 (Email)
-* 密碼 (Password)
-
-#### 4. 啟動開發伺服器
-
-執行以下指令啟動本機伺服器：
-```bash
-python manage.py runserver
-```
-
-啟動後，您可以在瀏覽器開啟以下連結：
-* **首頁**：[http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-* **Django 後台管理系統**：[http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
-
----
-
-## 📁 專案目錄結構
-
-```text
-DjangoBlog/
-├── DjangoBlog/               # 專案核心設定目錄
-│   ├── __init__.py
-│   ├── asgi.py               # ASGI 設定（非同步服務）
-│   ├── settings.py           # 專案全域設定檔（如資料庫、應用程式註冊等）
-│   ├── urls.py               # 路由對應檔（URL Routing）
-│   └── wsgi.py               # WSGI 設定（傳統同步服務）
-├── manage.py                 # Django 專案命令列管理工具
-└── README.md                 # 本說明文件
+2026-DjangoBlog/
+├── DjangoBlog/          # Django 專案核心設定目錄
+│   ├── settings.py      # 全局設定檔
+│   ├── urls.py          # 全局路由入口
+│   ├── wsgi.py          # WSGI 伺服器設定
+│   └── asgi.py          # ASGI 伺服器設定
+├── article/             # 文章模組 (App)
+│   ├── models.py        # 文章資料模型定義
+│   ├── views.py         # 視圖邏輯與頁面渲染
+│   ├── admin.py         # 後台管理註冊
+│   └── apps.py          # App 設定檔
+├── templates/           # 前端 HTML 模板目錄
+├── documents/           # 文件資源與範例說明
+├── manage.py            # Django 命令行管理工具
+├── requirements.txt     # Python 專案依賴套件列表
+└── README.md            # 專案說明文件
 ```
 
 ---
 
-## ➕ 常用後續開發指令
+## 🚀 快速開始
 
-* **新增 Django 應用程式 (App)**：
-  ```bash
-  python manage.py startapp <app_name>
-  ```
-  *(例如：`python manage.py startapp blog`，新增完後記得在 `settings.py` 的 `INSTALLED_APPS` 註冊新應用程式。)*
+### 前置需求
 
-* **偵測 Model 變更並產生遷移檔**：
-  ```bash
-  python manage.py makemigrations
-  ```
+請確保環境已安裝以下基礎工具：
+- Python 3.10+
+- Git
+
+### 安裝與啟動步驟
+
+1. **克隆專案庫**
+   ```bash
+   git clone https://github.com/gshan1209-cell/2026-DjangoBlog.git
+   cd 2026-DjangoBlog
+   ```
+
+2. **建立並啟用虛擬環境**
+   ```bash
+   python -m venv venv
+   # Windows:
+   venv\Scripts\activate
+   # macOS/Linux:
+   source venv/bin/activate
+   ```
+
+3. **安裝依賴套件**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **執行資料庫遷移與啟動開發伺服器**
+   ```bash
+   python manage.py migrate
+   python manage.py runserver
+   ```
+   啟動成功後，可在瀏覽器存取 `http://127.0.0.1:8000/`。
+
+---
+
+## 🤝 貢獻指南
+
+歡迎提交 PR 或 Issue 來改善專案內容！
+
+---
+
+## 📄 開源協議
+
+本專案採用 [MIT License](LICENSE) 授權。
