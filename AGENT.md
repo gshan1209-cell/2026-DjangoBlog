@@ -15,12 +15,15 @@
 ## 2. 目前專案狀態與工作進度 (Current Status)
 
 ### 2.1 已完成工作 (Completed)
-- [x] **專案結構分析**：分析結果已記錄於 [documents/project-arc.md](file:///d:/SeanLin/2026-DjangoBlog/documents/project-arc.md)。
-- [x] **Linux 部署規劃**：步驟化部署方案已記錄於 [documents/002-bash-scripts.md](file:///d:/SeanLin/2026-DjangoBlog/documents/002-bash-scripts.md)。
+- [x] **專案結構分析**：分析結果已記錄於 [documents/project-arc.md](documents/project-arc.md)。
+- [x] **Linux 部署規劃**：步驟化部署方案已記錄於 [documents/002-bash-scripts.md](documents/002-bash-scripts.md)。
 - [x] **批次檔轉換 (Linux 版)**：已成功建立對應的 Linux 專用 Bash 腳本（保留 Windows 版腳本以維持相容性）：
-  - [config.sh](file:///d:/SeanLin/2026-DjangoBlog/config.sh) (環境變數設定)
-  - [build_venv.sh](file:///d:/SeanLin/2026-DjangoBlog/build_venv.sh) (Python 虛擬環境配置與 pip 套件安裝)
-  - [download_db.sh](file:///d:/SeanLin/2026-DjangoBlog/download_db.sh) (資料庫 Google Drive 下載與驗證)
+  - [config.sh](config.sh) (環境變數設定)
+  - [build_venv.sh](build_venv.sh) (Python 虛擬環境配置與 pip 套件安裝)
+  - [download_db.sh](download_db.sh) (資料庫 Google Drive 下載與驗證)
+
+- [x] **Linux 本機啟動腳本**：已有 [start.sh](start.sh)，透過 `.venv/bin/python` 執行遷移與開發伺服器，預設 `127.0.0.1:8000`；見 [驗證範圍](documents/linux-start-validation.md)。
+- [x] **隔離 smoke 測試基礎**：已有獨立設定、記憶體資料庫與測試；見 [測試說明](documents/isolated-smoke-tests.md)。歷史通過不等於本次重新執行，也不代表正式設定／持久資料庫／部署驗收通過。
 
 ---
 
@@ -28,15 +31,12 @@
 
 當您接手本專案時，請優先考慮以下任務：
 
-- [ ] **建立 `start.sh` 腳本**：
-  * **目的**：作為 Windows 上 `start.bat` 的 Linux 替代方案。
-  * **需求**：啟用 `.venv/bin/activate`，執行 `python manage.py migrate`，並啟動 `python manage.py runserver`。
 - [ ] **建立 `setup_git.sh` 腳本**：
   * **目的**：作為 Windows 上 `setup_git.bat` 的 Linux 替代方案。
   * **需求**：讀取 `config.sh` 並執行 `git config` 設定本地使用者資訊。
-- [ ] **更新 `requirement.txt`**：
-  * **目的**：目前此檔案為空。應加入 `Django>=6.0` 等相依套件以利 `build_venv.sh` 順利安裝。
-- [ ] **進行 Linux 部署端對端驗證**：
+- [ ] **補齊 `requirements.txt`**：
+  * **目的**：目前此檔案為空；先核實應用程式依賴及版本相容性，再建立可重現的安裝基準。既有 `requirements-smoke.txt` 僅為隔離測試用途，不視為正式依賴清單。
+- [ ] **進行 Linux 本機初始化端對端驗證**：
   * **目的**：於 Linux 模擬環境下執行整個初始化流程（`build_venv.sh` -> `download_db.sh` -> `start.sh`），確保無語法或執行期錯誤。
 
 ---
@@ -49,7 +49,8 @@
 
 ### 4.2 啟動伺服器 (Linux)
 ```bash
-source .venv/bin/activate
-python manage.py migrate
-python manage.py runserver 0.0.0.0:8000
+bash start.sh
 ```
+
+
+須先備妥虛擬環境、依賴與本機設定；腳本會執行資料庫遷移，先核對目標與備份。預設僅綁定本機，不應以此作為正式部署。
