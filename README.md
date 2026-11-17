@@ -8,7 +8,6 @@
 
 <div align="center">
 
-[![GitHub license](https://img.shields.io/github/license/gshan1209-cell/2026-DjangoBlog?style=for-the-badge&color=blue)](https://github.com/gshan1209-cell/2026-DjangoBlog/blob/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-%E6%AD%A1%E8%BF%8E%E6%8F%90%E4%BA%A4-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
 [![Stars](https://img.shields.io/github/stars/gshan1209-cell/2026-DjangoBlog?style=for-the-badge&color=gold)](https://github.com/gshan1209-cell/2026-DjangoBlog/stargazers)
 
@@ -18,7 +17,7 @@
 
 > **🤖 Antigravity AI Agent 提示**
 >
-> 本 `README.md` 由 **Antigravity IDE AI Agent** 自動構建與維護。內容直接同步自專案程式碼與結構元資料，確保提供最新且精準的安裝指南與架構資訊。
+> 本文件原由 **Antigravity IDE AI Agent** 建立。功能與啟動說明仍須以目前程式碼及驗證紀錄核對，不代表自動同步或已完成正式部署驗收。
 
 ---
 
@@ -38,15 +37,15 @@
 
 ## 📖 關於專案
 
-`2026-DjangoBlog` 是一個輕量級且全功能的 Django 部落格應用程式。專案具備完整文章管理、靜態頁面渲染與模板系統，適合個人部落格展示、技術文章發表或作為 Django MVC 模式學習的範例。
+`2026-DjangoBlog` 是 Django 部落格學習專案。目前路由提供首頁文章列表與 Django Admin；尚未提供獨立單篇文章頁。正式環境部署及完整依賴仍待驗證。
 
 ---
 
 ## ✨ 主要功能
 
 - ⚡ **高效文章管理**：支援 Django Admin 後台對文章進行新增、編輯與刪除。
-- 🎨 **現代化樣式**：基於模板 HTML 渲染，提供清晰俐落的文章列表與單篇文章瀏覽體驗。
-- 🔒 **資料庫整合**：支援預設 SQLite 資料庫開箱即用，方便快速部署開發。
+- 🎨 **現代化樣式**：基於模板 HTML 渲染，提供首頁文章列表；目前沒有獨立單篇文章路由。
+- 🔒 **資料庫整合**：採用 SQLite 設定；既有資料庫內容與完整部署流程尚未在隔離 smoke 測試中驗證。
 
 ---
 
@@ -76,7 +75,7 @@
 ├── templates/           # 前端 HTML 模板目錄
 ├── documents/           # 文件資源與範例說明
 ├── manage.py            # Django 命令行管理工具
-├── requirements.txt     # Python 專案依賴套件列表
+├── requirements.txt     # 專案依賴清單（目前為空，待補齊）
 └── README.md            # 專案說明文件
 ```
 
@@ -86,38 +85,31 @@
 
 ### 前置需求
 
-請確保環境已安裝以下基礎工具：
-- Python 3.10+
-- Git
+Git 與 Python。既有隔離 smoke 驗證紀錄使用 Python 3.12.14、Django 6.0.10，僅為當時測試基準，不表示所有 Python 版本皆相容，也不是正式部署或安全審查結論。
 
 ### 安裝與啟動步驟
 
-1. **克隆專案庫**
-   ```bash
-   git clone https://github.com/gshan1209-cell/2026-DjangoBlog.git
-   cd 2026-DjangoBlog
-   ```
+目前 `requirements.txt` 為空，不能靠 `pip install -r requirements.txt` 完成應用程式依賴安裝。完整安裝流程尚待補齊依賴並驗證。
 
-2. **建立並啟用虛擬環境**
-   ```bash
-   python -m venv venv
-   # Windows:
-   venv\Scripts\activate
-   # macOS/Linux:
-   source venv/bin/activate
-   ```
+若要重現既有隔離 smoke 測試（Linux），先確認已安裝 Python 3.12 且可使用 venv／ensurepip，再使用獨立虛擬環境及測試用依賴：
 
-3. **安裝依賴套件**
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+git clone https://github.com/gshan1209-cell/2026-DjangoBlog.git
+cd 2026-DjangoBlog
+python3.12 -m venv /tmp/djangoblog-smoke
+/tmp/djangoblog-smoke/bin/python -m pip install -r requirements-smoke.txt
+/tmp/djangoblog-smoke/bin/python -m django test smoke_tests --settings=smoke_tests.settings -v 2
+```
 
-4. **執行資料庫遷移與啟動開發伺服器**
-   ```bash
-   python manage.py migrate
-   python manage.py runserver
-   ```
-   啟動成功後，可在瀏覽器存取 `http://127.0.0.1:8000/`。
+測試使用獨立設定與記憶體資料庫，不讀取既有 SQLite 檔案，也不驗證預設設定的安全性。測試範圍與歷史結果見 [隔離 smoke 測試說明](documents/isolated-smoke-tests.md)。
+
+`start.sh` 已存在。僅在另行備妥 `.venv/bin/python`、所需依賴及本機設定後，才可用下列指令啟動開發伺服器：
+
+```bash
+bash start.sh
+```
+
+此腳本會先執行資料庫遷移，可能變更設定所指向的資料庫；執行前先確認目標與備份。預設綁定 `127.0.0.1:8000`，僅供本機開發，不是正式部署指令。腳本的 stub 驗證不等於完整應用程式啟動已通過，詳見 [啟動腳本驗證](documents/linux-start-validation.md)。
 
 ---
 
@@ -129,4 +121,5 @@
 
 ## 📄 開源協議
 
-本專案採用 [MIT License](LICENSE) 授權。
+目前儲存庫沒有 `LICENSE` 檔案，尚無可核實的授權聲明。本文不替專案選定 MIT 或其他授權；對外使用與再散布條件須由擁有者確認。
+
